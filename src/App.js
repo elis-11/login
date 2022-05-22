@@ -1,5 +1,8 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 import "./App.scss";
+import { Dashboard } from "./components/dashboard/Dashboard";
+import { Login } from "./components/login/Login";
+import { Signup } from "./components/signup/Signup";
 
 function App() {
   return (
@@ -14,13 +17,10 @@ function App() {
         <h2>Manage your own book list!</h2>
         <Routes>
           <Route path="/" element={<div>HomePage</div>}></Route>
-          <Route path="/signup" element={<div>Signup Form</div>}></Route>
-          <Route path="/login" element={<div>Login Form</div>}></Route>
-          <Route path="/dashboard" element={<div>Dashboard</div>}></Route>
-          {/* <Route path="/" element={<Home />} />
-              <Route path="signup" element={<Signup />} />
-              <Route path="login" element={<Login />} />
-              <Route path="dashboard" element={<Dashboard />} /> */}
+          <Route path="signup" element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          {/* <Route path="/signup" element={<div>Si gnup Form</div>}></Route> */}
           {/* <Route path="dashboard/*" element={<Dashboard />} /> */}
         </Routes>
       </header>
