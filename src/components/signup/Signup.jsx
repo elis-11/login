@@ -1,39 +1,39 @@
-import { useRef } from "react";
+import { useRef } from "react"
 
-// console.log(process.env.REACT_APP_API_URL);
+const API_URL = "http://localhost:5000"
 
 export const Signup = () => {
 
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const pwRef = useRef();
+  const nameRef = useRef()
+  const emailRef = useRef()
+  const pwRef = useRef()
 
   const onSignupSubmit = async (e) => {
-    e.preventDefault();
 
-    console.log("Submited");
+    e.preventDefault() 
+
+    console.log("Submitted")
 
     const userSignup = {
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: pwRef.current.value,
-    }; 
-    console.log(userSignup);
+    }
 
-    // const response = await fetch(`${process.env.REACT_APP_API_URL }/users`, {
-    const response = await fetch(`${process.env.REACT_APP_API_URL }/users`, {
+    console.log(userSignup)
+
+    const response = await fetch(`${API_URL}/users`, {
       method: "POST",
-      body: JSON.stringify(userSignup),
+      body: JSON.stringify(userSignup), 
       headers: {
-        "Connect-Type": "application/json",
-      },
-    //   credentials: "include",
-    }); 
+        "Content-Type": "application/json"
+      }
+    })
 
-    const userNewApi = await response.json();
+    const userNewApi = await response.json()
 
-    console.log(userNewApi);
-  };
+    console.log( userNewApi )
+  }
 
   return (
     <form onSubmit={onSignupSubmit}>
@@ -44,11 +44,11 @@ export const Signup = () => {
         <input type="text" ref={emailRef} placeholder="Email..." />
       </div>
       <div>
-        <input type="text" ref={pwRef} placeholder="Password..." />
+        <input type="password" ref={pwRef} placeholder="Password..." />
       </div>
       <div>
         <button type="submit">Signup</button>
       </div>
     </form>
-  );
-};
+  )
+}
