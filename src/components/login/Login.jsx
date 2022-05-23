@@ -1,51 +1,50 @@
-import { useRef, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000"
+const API_URL = process.env.REACT_APP_API_URL //"http://localhost:5000";
+// console.log(API_URL);
 
 export const Login = () => {
+  const [errors, setErrors] = useState("");
 
-  const [errors, setErrors] = useState("")
+  const emailRef = useRef();
+  const pwRef = useRef();
 
-  const emailRef = useRef()
-  const pwRef = useRef()
-
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const onLoginSubmit = async (e) => {
+    e.preventDefault();
 
-    e.preventDefault()
-
-    console.log("Submitted")
+    console.log("Submitted");
 
     const userLogin = {
       email: emailRef.current.value,
       password: pwRef.current.value,
-    }
+    };
 
-    console.log(userLogin)
+    console.log(userLogin);
 
-    const response = await fetch(
-      `${API_URL}/users/login`,
-       {
+    // const response = await fetch(`${API_URL}/users/login`, {
+    const response = await fetch(`${API_URL}/users/login`, {
       method: "POST",
       body: JSON.stringify(userLogin),
       headers: {
         "Content-Type": "application/json",
       },
-    })
+      // credentials: "include",
+    });
 
-    const result = await response.json()
+    const result = await response.json();
 
-    if(response.status !== 200) {
-      return setErrors(result.error)
+    if (response.status !== 200) {
+      return setErrors(result.error);
     }
 
-    console.log(result)
-    setErrors("")
+    console.log(result);
+    setErrors("");
 
-    navigate("/dashboard", { replace: true })
-  }
+    navigate("/dashboard", { replace: true });
+  };
 
   return (
     <form onSubmit={onLoginSubmit}>
@@ -58,9 +57,9 @@ export const Login = () => {
       <div>
         <button type="submit">Login</button>
       </div>
-      <div className="errors" style={{ color: 'red', fontWeight: "bold" }}>
-        { errors }
+      <div className="errors" style={{ color: "red", fontWeight: "bold" }}>
+        {errors}
       </div>
     </form>
-  )
-}
+  );
+};

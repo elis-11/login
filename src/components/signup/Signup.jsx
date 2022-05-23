@@ -1,39 +1,37 @@
-import { useRef } from "react"
+import { useRef } from "react";
 
-const API_URL = "http://localhost:5000"
+const API_URL = process.env.REACT_APP_API_URL; // "http://localhost:5000"
 
 export const Signup = () => {
-
-  const nameRef = useRef()
-  const emailRef = useRef()
-  const pwRef = useRef()
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const pwRef = useRef();
 
   const onSignupSubmit = async (e) => {
+    e.preventDefault();
 
-    e.preventDefault() 
-
-    console.log("Submitted")
+    console.log("Submitted");
 
     const userSignup = {
       name: nameRef.current.value,
       email: emailRef.current.value,
       password: pwRef.current.value,
-    }
+    };
 
-    console.log(userSignup)
+    console.log(userSignup);
 
     const response = await fetch(`${API_URL}/users`, {
       method: "POST",
-      body: JSON.stringify(userSignup), 
+      body: JSON.stringify(userSignup),
       headers: {
-        "Content-Type": "application/json"
-      }
-    })
+        "Content-Type": "application/json",
+      },
+    });
 
-    const userNewApi = await response.json()
+    const userNewApi = await response.json();
 
-    console.log( userNewApi )
-  }
+    console.log(userNewApi);
+  };
 
   return (
     <form onSubmit={onSignupSubmit}>
@@ -50,5 +48,5 @@ export const Signup = () => {
         <button type="submit">Signup</button>
       </div>
     </form>
-  )
-}
+  );
+};
