@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginApi } from "../helpers/apiCalls";
 
-const API_URL = process.env.REACT_APP_API_URL //"http://localhost:5000";
+// const API_URL = process.env.REACT_APP_API_URL //"http://localhost:5000";
 // console.log(API_URL);
 
 export const Login = () => {
@@ -15,28 +16,11 @@ export const Login = () => {
   const onLoginSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Submitted");
+    console.log("Submitted"); 
 
-    const userLogin = {
-      email: emailRef.current.value,
-      password: pwRef.current.value,
-    };
+    const result = await loginApi (emailRef.current.value, pwRef.current.value)
 
-    console.log(userLogin);
-
-    // const response = await fetch(`${API_URL}/users/login`, {
-    const response = await fetch(`${API_URL}/users/login`, {
-      method: "POST",
-      body: JSON.stringify(userLogin),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-
-    const result = await response.json();
-
-    if (response.status !== 200) {
+    if(result.error) {
       return setErrors(result.error);
     }
 

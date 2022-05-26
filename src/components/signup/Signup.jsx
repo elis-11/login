@@ -1,36 +1,33 @@
 import { useRef } from "react";
+import { signupApi } from "../helpers/apiCalls";
+import { useNavigate } from "react-router-dom";
 
-const API_URL = process.env.REACT_APP_API_URL; // "http://localhost:5000"
+// const API_URL = process.env.REACT_APP_API_URL; // "http://localhost:5000"
 
 export const Signup = () => {
   const nameRef = useRef();
   const emailRef = useRef();
   const pwRef = useRef();
 
+  const navigate = useNavigate();
+
+  // collect data, forward data to API function
   const onSignupSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // stop browser from forwarding me to other page
 
-    console.log("Submitted");
+    // forward data to API function
+    const result = await signupApi(
+      nameRef.current.value,
+      emailRef.current.value,
+      pwRef.current.value
+    );
+    // error on signup?
+    if(result.error) {
+      return console.log(result.error)
+    }
 
-    const userSignup = {
-      name: nameRef.current.value,
-      email: emailRef.current.value,
-      password: pwRef.current.value,
-    };
-
-    console.log(userSignup);
-
-    const response = await fetch(`${API_URL}/users`, {
-      method: "POST",
-      body: JSON.stringify(userSignup),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    const userNewApi = await response.json();
-
-    console.log(userNewApi);
+    // signup worked => forward me
+    navigate("/")
   };
 
   return (
