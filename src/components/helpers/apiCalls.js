@@ -9,7 +9,7 @@ export const loginApi = async (email, password) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include",
+    credentials: "include", 
   });
 
   return response.json();
