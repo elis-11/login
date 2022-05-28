@@ -1,19 +1,15 @@
-import { NavLink, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { Dashboard } from "./components/dashboard/Dashboard";
 import { Login } from "./components/login/Login";
 import { Signup } from "./components/signup/Signup";
+import {Navbar} from "./components/Navbar";
 
 function App() {
   return (
     <div className="App">
+        <Navbar />
       <header>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="signup">Signup</NavLink>
-          <NavLink to="login">Login</NavLink>
-          <NavLink to="dashboard">Dashboard</NavLink>
-        </nav>
         <h2>Manage your own book list!</h2>
         <Routes>
           <Route path="/" element={<div>HomePage</div>}></Route>
