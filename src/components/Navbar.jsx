@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDataContext } from "../context/DataProvider";
 import "../App.scss";
+import { logoutApi } from "./helpers/apiCalls";
 
 export const Navbar = () => {
   const { user, setUser } = useDataContext();
@@ -10,9 +11,11 @@ export const Navbar = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     setUser();
+
+    logoutApi()
+
     navigate("/login")
   };
-
   return (
     <nav>
       <NavLink to="/">Home</NavLink>

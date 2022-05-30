@@ -4,7 +4,7 @@ import { fetchBooksApi } from "../helpers/apiCalls";
 
 export const Dashboard = () => {
 
-const {user, setErrors}= useDataContext()
+const {user}= useDataContext()
 
   const [books, setBooks] = useState([]);
 
@@ -23,10 +23,10 @@ const {user, setErrors}= useDataContext()
     if(user) {
       fetchBooks();
     }
-    else{
-      setErrors("You aren't logged in!")
-    }
-  }, []); // just on first load!
+    // else{
+    //   setErrors("You aren't logged in!")
+    // }
+  }, [user]); // just on first load!
 
   return (
     <div className="dashboard">
