@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import { useDataContext } from "../../context/DataProvider";
 import { fetchBooksApi } from "../helpers/apiCalls";
 
 export const Dashboard = () => {
+
+const {user, setErrors}= useDataContext()
+
   const [books, setBooks] = useState([]);
 
   // fetch data from backend load
@@ -15,19 +19,27 @@ export const Dashboard = () => {
       // fetch data successfully
       setBooks(result);
     };
-    fetchBooks();
+
+    if(user) {
+      fetchBooks();
+    }
+    else{
+      setErrors("You aren't logged in!")
+    }
   }, []); // just on first load!
 
   return (
     <div className="dashboard">
       {/* <h2>Your private area. Enjoy!</h2>
     <p>I hope, your books will get listed here... next monday!</p> */}
+    <div className="books">
       {books.map((book) => (
-        <div key={book._id}>
+        <div className="book" key={book._id}>
           <div>{book.title}</div>
-          <div>{book.author}</div>
+          <div> {book.author}</div>
         </div>
       ))}
+      </div>
     </div>
   );
 };

@@ -1,12 +1,15 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDataContext } from "../../context/DataProvider";
 import { loginApi } from "../helpers/apiCalls";
 
-// const API_URL = process.env.REACT_APP_API_URL //"http://localhost:5000";
-// console.log(API_URL);
+const API_URL = process.env.REACT_APP_API_URL //"http://localhost:5000";
+console.log(API_URL);
 
 export const Login = () => {
-  const [errors, setErrors] = useState("");
+
+  const {setUser, setErrors}= useDataContext()
+  // const [errors, setErrors] = useState("");
 
   const emailRef = useRef();
   const pwRef = useRef();
@@ -26,6 +29,7 @@ export const Login = () => {
 
     console.log(result);
     setErrors("");
+    setUser(result)
 
     navigate("/dashboard", { replace: true });
   };
@@ -40,9 +44,6 @@ export const Login = () => {
       </div>
       <div>
         <button type="submit">Login</button>
-      </div>
-      <div className="errors" style={{ color: "red", fontWeight: "bold" }}>
-        {errors}
       </div>
     </form>
   );

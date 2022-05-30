@@ -1,12 +1,30 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDataContext } from "../context/DataProvider";
+import "../App.scss";
 
 export const Navbar = () => {
+  const { user, setUser } = useDataContext();
+
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    setUser();
+    navigate("/login")
+  };
+
   return (
     <nav>
-    <NavLink to="/">Home</NavLink>
-    <NavLink to="signup">Signup</NavLink>
-    <NavLink to="login">Login</NavLink>
-    <NavLink to="dashboard">Dashboard</NavLink>
-  </nav>
-)
-}
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="signup">Signup</NavLink>
+      {!user && <NavLink to="login">Login</NavLink>}
+      {user && (
+        <NavLink onClick={handleLogout} to="#">
+          Logout
+        </NavLink>
+      )}
+      <NavLink to="dashboard">Dashboard</NavLink>
+      {user && <span>{user.email}</span>}
+    </nav>
+  );
+};
