@@ -9,7 +9,7 @@ export const loginApi = async (email, password) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include", 
+    credentials: "include",  
   });
 
   return response.json();
@@ -32,7 +32,7 @@ export const signupApi = async (name, email, password) => {
 };
 
 export const logoutApi = async () => {
-  const response = await fetch(`${API_URL}/users /logout`, {
+  const response = await fetch(`${API_URL}/users/logout`, {
     credentials: "include",
   });
   return response.json();

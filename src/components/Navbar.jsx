@@ -11,9 +11,7 @@ export const Navbar = () => {
   const handleLogout = (e) => {
     e.preventDefault();
     setUser();
-
     logoutApi()
-
     navigate("/login")
   };
   return (
