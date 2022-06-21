@@ -1,34 +1,36 @@
-import { createContext, useContext, useEffect, useState } from "react"
-import { checkAuthStatusApi} from "../components/helpers/apiCalls"
+import { createContext, useContext, useEffect, useState } from "react";
+import { checkAuthStatusApi } from "../components/helpers/apiCalls";
 
-export const DataContext= createContext()
+export const DataContext = createContext();
 
-export const useDataContext=()=>{
+export const useDataContext = () => {
+  return useContext(DataContext);
+};
+export const DataProvider = ({ children }) => {
+  // const [user, setUser]=useState({email:"sara@sara.com"})
+  const [user, setUser] = useState();
+  const [errors, setErrors] = useState("");
 
-    return useContext(DataContext)
-}
-export const DataProvider= ({children})=>{
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      const result = await checkAuthStatusApi();
+      if (!result.error) {
+        setUser(result);
+      }
+    };
+    checkAuthStatus();
+  }, []);
 
-// const [user, setUser]=useState({email:"sara@sara.com"})
-const [user, setUser]=useState()
-const [errors, setErrors]=useState("")
+  const sharedData = {
+    user,
+    setUser,
+    errors,
+    setErrors,
+  };
 
-useEffect(() => {
-    const checkAuthStatus= async () => {
-     const result= await checkAuthStatusApi()
-     if(!result.error){
-         setUser(result)
-     }
-    }
-    checkAuthStatus()
-}, [])
-
-const sharedData={ 
-    user, setUser,
-    errors, setErrors
-}
-
-    return <DataContext.Provider value={sharedData}>
-        {children}
-    </DataContext.Provider>
-}
+  return (
+    <DataContext.Provider value={sharedData}>
+      {children}
+      </DataContext.Provider>
+  );
+};

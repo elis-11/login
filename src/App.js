@@ -15,7 +15,6 @@ function App() {
         <h2>Manage your own book list!</h2>
         <Navbar />
       </header>
-      <main>
         <Routes>
           <Route path="/" element={<div>HomePage</div>}></Route>
           <Route path="signup" element={<Signup />} />
@@ -24,7 +23,6 @@ function App() {
           {/* <Route path="/signup" element={<div>Si gnup Form</div>}></Route> */}
           {/* <Route path="dashboard/*" element={<Dashboard />} /> */}
         </Routes>
-      </main>
     </div>
   );
 }
