@@ -10,6 +10,8 @@ export const DataProvider = ({ children }) => {
   // const [user, setUser]=useState({email:"sara@sara.com"})
   const [user, setUser] = useState();
   const [errors, setErrors] = useState("");
+  const [books, setBooks] = useState([]);
+
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -26,6 +28,8 @@ export const DataProvider = ({ children }) => {
     setUser,
     errors,
     setErrors,
+    books, 
+    setBooks,
   };
 
   return (
